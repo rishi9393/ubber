@@ -1,6 +1,6 @@
 const userModel = require("../models/user.model");
-import isEmpty from "./../node_modules/validator/es/lib/isEmpty";
 const userService = require("../services/user.service");
+const isEmpty = require("validator/lib/isEmpty");
 const { validationResult } = require("express-validator");
 
 const registerUser = async (req, res, next) => {
@@ -11,15 +11,17 @@ const registerUser = async (req, res, next) => {
     });
   }
 
-  const { firstname, lastname, email, password } = req.body;
+  const { fullname, email, password } = req.body;
   const hashedPassword = await userModel.hashPassword(password);
 
   const user = await userService.registerUser({
-    firstname,
-    lastname,
+    firstname: fullname.firstname,
+    lastname: fullname.lastname,
     email,
     password: hashedPassword,
   });
+
+  console.log(user);
 
   const token = user.generateAuthToken();
   res.status(201).json({

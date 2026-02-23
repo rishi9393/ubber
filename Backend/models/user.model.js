@@ -4,20 +4,16 @@ const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema({
   fullName: {
-    type: String,
-    required: true,
-    minlength: [3, "First Name should be at least 3 characters long"],
-  },
-
-  firstName: {
-    type: String,
-    required: true, 
-    minlength: [3, "First Name should be at least 3 characters long"],
-  },
-
-  lastName: {
-    type: String,
-    minlength: [4, "Last Name should be at least 4 characters long"],
+    firstName: {
+      type: String,
+      required: true,
+      minlength: [3, "First Name should be at least 3 characters long"],
+    },
+    lastName: {
+      type: String,
+      required: true,
+      minlength: [3, "Last Name should be at least 3 characters long"],
+    },
   },
   email: {
     type: String,
@@ -42,6 +38,7 @@ userSchema.methods.generateAuthToken = function () {
     },
     process.env.JWT_SECRET,
   );
+  return token;
 };
 
 userSchema.methods.comparePassword = async function (password) {

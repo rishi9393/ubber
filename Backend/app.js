@@ -1,17 +1,18 @@
-const  dotenv = require( 'dotenv')
+const dotenv = require("dotenv");
 dotenv.config();
-const cors = require('cors')
-const express = require('express')
-const connectToDb  = require('./db/db')
+const cors = require("cors");
+const express = require("express");
+const connectToDb = require("./db/db");
+const userRoutes = require("./routes/user.routes");
 
 const app = express();
 
 connectToDb();
 
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/',(req,res)=>{
-    console.log("just casual route for testing")
-})
+app.use("/users", userRoutes);
 
 module.exports = app;

@@ -6,15 +6,15 @@ const registerUser = async ({ firstname, lastname, email, password }) => {
   }
 
   const user = await userModel.create({
-    fullname:{
-        firstname,
-        lastname
+    fullName: {
+      firstName: firstname,
+      lastName: lastname,
     },
     email,
-    password 
+    password,
   });
 
   return user;
 };
 
-module.exports = { registerUser };  
+module.exports = { registerUser };
