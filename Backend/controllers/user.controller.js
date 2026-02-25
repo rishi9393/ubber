@@ -22,6 +22,9 @@ const registerUser = async (req, res, next) => {
   });
 
   const token = user.generateAuthToken();
+
+  res.cookie("token", token);
+
   res.status(201).json({
     token,
     user,
@@ -54,7 +57,8 @@ const loginUser = async (req, res, next) => {
     });
   }
 
-  const token = user.generateAuthToken();``
+  const token = user.generateAuthToken();
+  ``;
 
   res.status(200).json({
     token,
@@ -63,7 +67,7 @@ const loginUser = async (req, res, next) => {
 };
 
 const getUserProfile = async (req, res, next) => {
-  
-}
+  res.status(200).json(req.user);
+};
 
-module.exports = { registerUser, loginUser };
+module.exports = { registerUser, loginUser, getUserProfile };
